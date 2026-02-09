@@ -4,8 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Slider } from "@/components/ui/slider"
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
+import { Button } from "@/components/ui/button"
+import { usePremium } from '../contexts/PremiumContext';
+import { Sparkles, CheckCircle2 } from 'lucide-react';
+import PaywallModal from '../components/PaywallModal';
 
 export default function Settings() {
+    const { isPremium, resetPremium } = usePremium();
+    const [showPaywall, setShowPaywall] = useState(false);
     const [settings, setSettings] = useState({
         rounding: 2,
         theme: 'light'
@@ -40,7 +46,44 @@ export default function Settings() {
 
     return (
         <div className="space-y-6 animate-in fade-in pb-20">
+            <PaywallModal isOpen={showPaywall} onClose={() => setShowPaywall(false)} />
+
             <h2 className="text-xl font-bold text-slate-900 px-1">Settings</h2>
+
+            {/* Premium Status */}
+            <Card className={`border-none shadow-md overflow-hidden bg-gradient-to-br ${isPremium ? 'from-blue-600 to-indigo-700 text-white' : 'from-slate-800 to-slate-900 text-white'}`}>
+                <CardContent className="p-6">
+                    <div className="flex justify-between items-start">
+                        <div className="space-y-1">
+                            <h3 className="text-lg font-bold flex items-center gap-2">
+                                {isPremium ? <CheckCircle2 size={20} className="text-blue-200" /> : <Sparkles size={20} className="text-amber-400" />}
+                                {isPremium ? 'UnitMaster Pro' : 'Free Version'}
+                            </h3>
+                            <p className="text-xs opacity-80">
+                                {isPremium ? 'Lifetime access active' : 'Support dev & unlock all features'}
+                            </p>
+                        </div>
+                        {!isPremium && (
+                            <Button
+                                size="sm"
+                                variant="secondary"
+                                className="font-bold text-slate-900"
+                                onClick={() => setShowPaywall(true)}
+                            >
+                                Upgrade
+                            </Button>
+                        )}
+                    </div>
+                    {isPremium && (
+                        <button
+                            onClick={resetPremium}
+                            className="text-[10px] mt-4 opacity-50 hover:opacity-100 underline decoration-dotted"
+                        >
+                            Reset trial (Dev mode)
+                        </button>
+                    )}
+                </CardContent>
+            </Card>
 
             {/* Rounding */}
             <Card className="border-slate-100 shadow-sm">
@@ -54,7 +97,7 @@ export default function Settings() {
                         <span className="text-slate-400 text-sm">decimals</span>
                     </div>
                     <Slider
-                        defaultValue={[settings.rounding]}
+                        value={[settings.rounding]}
                         max={6}
                         step={1}
                         onValueChange={handleRoundingChange}
@@ -68,7 +111,7 @@ export default function Settings() {
                 </CardContent>
             </Card>
 
-            {/* Theme (Placeholder) */}
+            {/* Theme */}
             <Card className="border-slate-100 shadow-sm opacity-50 relative overflow-hidden">
                 <div className="absolute inset-0 bg-slate-50/50 z-10 flex items-center justify-center">
                     <span className="bg-white px-3 py-1 rounded-full text-xs font-bold shadow-sm text-slate-500">Coming Soon</span>
@@ -85,8 +128,8 @@ export default function Settings() {
             {/* About */}
             <div className="text-center py-8 space-y-2">
                 <h3 className="font-bold text-slate-900">UnitMaster Pro</h3>
-                <p className="text-xs text-slate-500">Version 1.0.0 (PWA)</p>
-                <p className="text-xs text-slate-400">Offline-first engineering converter.</p>
+                <p className="text-xs text-slate-500">Version 1.1.0 (PWA)</p>
+                <p className="text-xs text-slate-400">&copy; 2026 EngineerLab AI</p>
             </div>
 
             {saved && (
