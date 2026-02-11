@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import {
     Ruler, Scale, Gauge, Zap, Thermometer, Hammer, Activity,
-    Square, Box, Wind, Clock, HardDrive, Flame, Plug
+    Square, Box, Wind, Clock, HardDrive, Flame, Plug,
+    Banknote, ChefHat
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -23,6 +24,11 @@ const categories = [
     { id: 'torque', name: 'Torque', icon: Activity, description: 'Nm, lbf·ft', popular: false },
 ];
 
+const specializedTools = [
+    { id: 'currency', name: 'Currency', icon: Banknote, path: '/currency', description: 'Real-time exchange rates' },
+    { id: 'cooking', name: 'Cooking', icon: ChefHat, path: '/cooking', description: 'Ingredient volume to weight' },
+];
+
 export default function UnitSets() {
     const navigate = useNavigate();
 
@@ -42,6 +48,7 @@ export default function UnitSets() {
                 </Button>
             </div>
 
+            {/* Standard Units */}
             <div className="grid grid-cols-2 gap-4">
                 {categories.map((cat) => {
                     const Icon = cat.icon;
@@ -68,6 +75,36 @@ export default function UnitSets() {
                         </Card>
                     );
                 })}
+            </div>
+
+            {/* Specialized Tools */}
+            <div className="pt-4">
+                <h3 className="text-lg font-bold text-slate-900 mb-4 px-1">Specialized Tools</h3>
+                <div className="grid grid-cols-1 gap-4">
+                    {specializedTools.map((tool) => {
+                        const Icon = tool.icon;
+                        return (
+                            <Card
+                                key={tool.id}
+                                onClick={() => navigate(tool.path)}
+                                className="cursor-pointer hover:shadow-md transition-all active:scale-[0.98] border-slate-100 relative overflow-hidden group"
+                            >
+                                <CardContent className="p-4 flex items-center gap-4">
+                                    <div className={`p-3 rounded-full ${tool.id === 'currency' ? 'bg-emerald-50 text-emerald-600' : 'bg-orange-50 text-orange-600'}`}>
+                                        <Icon size={24} />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-slate-900 text-lg">{tool.name} Converter</h3>
+                                        <p className="text-xs text-slate-500">{tool.description}</p>
+                                    </div>
+                                    <div className="ml-auto">
+                                        <Button variant="ghost" size="sm">Open</Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        );
+                    })}
+                </div>
             </div>
         </div>
     );

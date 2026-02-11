@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Calculator, Calendar, CreditCard, Settings, User, Smile, Search, Ruler, Link as LinkIcon, Download } from "lucide-react"
+import { Calculator, Calendar, CreditCard, Settings, User, Smile, Search, Ruler, Link as LinkIcon, Download, Banknote, ChefHat } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 import {
@@ -77,6 +77,14 @@ export function GlobalSearch() {
                         <CommandItem onSelect={() => runCommand(() => navigate('/constants'))}>
                             <LinkIcon className="mr-2 h-4 w-4" />
                             <span>Constants Library</span>
+                        </CommandItem>
+                        <CommandItem onSelect={() => runCommand(() => navigate('/currency'))}>
+                            <Banknote className="mr-2 h-4 w-4" />
+                            <span>Currency Converter</span>
+                        </CommandItem>
+                        <CommandItem onSelect={() => runCommand(() => navigate('/cooking'))}>
+                            <ChefHat className="mr-2 h-4 w-4" />
+                            <span>Cooking Converter</span>
                         </CommandItem>
                         <CommandItem onSelect={() => runCommand(() => navigate('/history'))}>
                             <Download className="mr-2 h-4 w-4" />

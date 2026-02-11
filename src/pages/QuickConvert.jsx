@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ArrowRightLeft, Copy, Star, Share2 } from 'lucide-react';
 import unitsData from '../data/units.json';
 import { convert } from '../utils/converter';
+import { safeEvaluate } from '../utils/math';
 import db from '../db/database';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -89,10 +90,21 @@ export default function QuickConvert() {
 
     // Calculate & History
     useEffect(() => {
-        if (!amount || isNaN(parseFloat(amount))) {
+        if (!amount) {
             setResult('');
             return;
         }
+
+        const numericValue = safeEvaluate(amount);
+
+        if (isNaN(numericValue)) {
+            // Check if it's just partially typed text, usually don't clear, just show ... or error?
+            // For now, let's keep result as empty or previous valid? 
+            // Better to show '...' if invalid math
+            setResult('...');
+            return;
+        }
+
         const units = unitsData[family];
         if (!units) return;
 
@@ -100,16 +112,20 @@ export default function QuickConvert() {
         const to = units.find(u => u.id === toUnitId);
 
         if (from && to) {
-            const res = convert(amount, from, to);
-            const displayRes = Number(res).toFixed(rounding).replace(/\.?0+$/, '');
+            const res = convert(numericValue, from, to);
+            // Handle massive numbers or tiny numbers better
+            let displayRes = Number(res).toFixed(rounding).replace(/\.?0+$/, '');
+            if (displayRes === 'NaN') displayRes = 'Error';
+
             setResult(displayRes);
 
             checkFavorite(from.id, to.id);
 
+            // Only add to history if it's a valid number and user stopped typing
             if (historyTimeoutRef.current) clearTimeout(historyTimeoutRef.current);
             historyTimeoutRef.current = setTimeout(async () => {
                 await db.history.add({
-                    value: parseFloat(amount),
+                    value: numericValue,
                     fromUnitId: from.id,
                     toUnitId: to.id,
                     result: displayRes,
@@ -207,7 +223,8 @@ export default function QuickConvert() {
                         <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">From</label>
                         <div className="flex gap-4 items-center">
                             <Input
-                                type="number"
+                                type="text"
+                                inputMode="decimal"
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
                                 className="text-3xl font-bold h-auto py-2 border-0 shadow-none focus-visible:ring-0 px-0 bg-transparent placeholder:text-slate-200"
