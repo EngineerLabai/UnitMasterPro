@@ -1,6 +1,6 @@
 export const familyInfo = {
     length: {
-        title: "Length & Distance",
+        title: "Length",
         description: "The measure of one dimension of an object.",
         detailed_desc: "Length is the most extended dimension of an object. In the International System of Units (SI), the base unit of length is the meter, which is defined by the speed of light in vacuum.",
         fun_fact: "A light-year is actually a measure of distance, not time! It's about 9.46 trillion kilometers.",
@@ -8,7 +8,7 @@ export const familyInfo = {
         color: "from-blue-400 to-cyan-300"
     },
     mass: {
-        title: "Mass & Weight",
+        title: "Mass",
         description: "A dimensionless quantity representing the amount of matter.",
         detailed_desc: "Mass is an intrinsic property of a body. Unlike weight, mass does not change with gravity. The kilogram is the SI base unit, now defined by the Planck constant.",
         fun_fact: "Your mass is the same on the Moon as it is on Earth, but your weight would be 16.5% of what it is on Earth.",
@@ -48,7 +48,7 @@ export const familyInfo = {
         color: "from-teal-400 to-cyan-300"
     },
     speed: {
-        title: "Speed & Velocity",
+        title: "Speed",
         description: "The rate of change of position.",
         detailed_desc: "Speed is a scalar quantity referring to 'how fast an object is moving', while velocity is a vector that includes direction. The speed of light is the cosmic speed limit.",
         fun_fact: "The SR-71 Blackbird is the fastest manned airbreathing jet aircraft, reaching speeds over Mach 3.",
@@ -123,7 +123,7 @@ export const familyInfo = {
 
 export const familyInfoTr = {
     length: {
-        title: "Uzunluk & Mesafe",
+        title: "Uzunluk",
         description: "Bir nesnenin bir boyutunun ölçüsü.",
         detailed_desc: "Uzunluk, bir nesnenin en uzun boyutudur. Uluslararası Birim Sistemi'nde (SI) temel uzunluk birimi metredir ve vakumdaki ışık hızıyla tanımlanır.",
         fun_fact: "Işık yılı aslında bir zaman değil, mesafe ölçüsüdür! Yaklaşık 9.46 trilyon kilometredir.",
@@ -131,7 +131,7 @@ export const familyInfoTr = {
         color: "from-blue-400 to-cyan-300"
     },
     mass: {
-        title: "Kütle & Ağırlık",
+        title: "Kütle",
         description: "Madde miktarını temsil eden boyutsuz nicelik.",
         detailed_desc: "Kütle, bir cismin içsel özelliğidir. Ağırlığın aksine, kütle yerçekimiyle değişmez. Kilogram SI temel birimidir ve artık Planck sabiti ile tanımlanır.",
         fun_fact: "Kütleniz Ay'da da Dünya'dakiyle aynıdır, ancak ağırlığınız Dünya'dakinin %16.5'i kadar olur.",
@@ -171,7 +171,7 @@ export const familyInfoTr = {
         color: "from-teal-400 to-cyan-300"
     },
     speed: {
-        title: "Hız & Sürat",
+        title: "Hız",
         description: "Konumun değişim oranı.",
         detailed_desc: "Sürat, 'bir nesnenin ne kadar hızlı hareket ettiğini' ifade eden skaler bir niceliktir, hız ise yönü de içeren vektörel bir niceliktir. Işık hızı kozmik hız sınırıdır.",
         fun_fact: "SR-71 Blackbird, Mach 3'ün üzerine çıkan en hızlı insanlı hava soluyan jet uçağıdır.",
