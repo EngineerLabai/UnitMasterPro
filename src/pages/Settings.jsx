@@ -13,10 +13,10 @@ import { toast } from "sonner";
 
 export default function Settings() {
     const { isPremium, resetPremium } = usePremium();
+    const { theme, setTheme } = useTheme();
     const [showPaywall, setShowPaywall] = useState(false);
     const [settings, setSettings] = useState({
         rounding: 2,
-        theme: 'light'
     });
     const [saved, setSaved] = useState(false);
 
@@ -25,13 +25,8 @@ export default function Settings() {
     }, []);
 
     const loadSettings = async () => {
-        const keys = ['rounding', 'theme'];
-        const loaded = {};
-        for (const key of keys) {
-            const entry = await db.settings.get(key);
-            if (entry) loaded[key] = entry.value;
-        }
-        setSettings(prev => ({ ...prev, ...loaded }));
+        const entry = await db.settings.get('rounding');
+        if (entry) setSettings(prev => ({ ...prev, rounding: entry.value }));
     };
 
     const handleRoundingChange = async (val) => {
@@ -84,7 +79,7 @@ export default function Settings() {
         <div className="space-y-6 animate-in fade-in pb-20">
             <PaywallModal isOpen={showPaywall} onClose={() => setShowPaywall(false)} />
 
-            <h2 className="text-xl font-bold text-slate-900 px-1">Settings</h2>
+            <h2 className="text-xl font-bold text-slate-900 px-1 dark:text-gray-100">Settings</h2>
 
             {/* Premium Status */}
             <Card className={`border-none shadow-md overflow-hidden bg-gradient-to-br ${isPremium ? 'from-blue-600 to-indigo-700 text-white' : 'from-slate-800 to-slate-900 text-white'}`}>
@@ -114,7 +109,7 @@ export default function Settings() {
             </Card>
 
             {/* Rounding */}
-            <Card className="border-slate-100 shadow-sm">
+            <Card className="border-slate-100 dark:border-slate-800 shadow-sm">
                 <CardHeader>
                     <CardTitle className="text-base">Decimal Precision</CardTitle>
                     <CardDescription>Adjust how many decimal places to show.</CardDescription>
@@ -135,7 +130,7 @@ export default function Settings() {
             </Card>
 
             {/* Appearance */}
-            <Card className="border-slate-100 shadow-sm">
+            <Card className="border-slate-100 dark:border-slate-800 shadow-sm">
                 <CardHeader>
                     <CardTitle className="text-base">Appearance</CardTitle>
                 </CardHeader>
@@ -150,19 +145,19 @@ export default function Settings() {
             </Card>
 
             {/* Data Management */}
-            <Card className="border-slate-100 shadow-sm">
+            <Card className="border-slate-100 dark:border-slate-800 shadow-sm">
                 <CardHeader>
                     <CardTitle className="text-base">Data Management</CardTitle>
                     <CardDescription>Manage your local data.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                    <Button variant="outline" className="w-full justify-start text-slate-600" onClick={() => clearData('history')}>
+                    <Button variant="outline" className="w-full justify-start text-slate-600 dark:text-slate-300" onClick={() => clearData('history')}>
                         <RefreshCcw size={16} className="mr-2" /> Clear History
                     </Button>
-                    <Button variant="outline" className="w-full justify-start text-slate-600" onClick={() => clearData('favorites')}>
+                    <Button variant="outline" className="w-full justify-start text-slate-600 dark:text-slate-300" onClick={() => clearData('favorites')}>
                         <Trash2 size={16} className="mr-2" /> Clear Favorites
                     </Button>
-                    <Button variant="destructive" className="w-full justify-start bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 border-red-100 shadow-none" onClick={factoryReset}>
+                    <Button variant="destructive" className="w-full justify-start bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 border-red-100 dark:bg-red-900/20 dark:border-red-900/30 shadow-none" onClick={factoryReset}>
                         <Database size={16} className="mr-2" /> Factory Reset App
                     </Button>
                     {isPremium && (
@@ -174,15 +169,15 @@ export default function Settings() {
             </Card>
 
             {/* Support */}
-            <Card className="border-slate-100 shadow-sm">
+            <Card className="border-slate-100 dark:border-slate-800 shadow-sm">
                 <CardHeader>
                     <CardTitle className="text-base">Support</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
-                    <Button variant="outline" className="w-full justify-start text-slate-600" onClick={shareApp}>
+                    <Button variant="outline" className="w-full justify-start text-slate-600 dark:text-slate-300" onClick={shareApp}>
                         <Share2 size={16} className="mr-2" /> Share App
                     </Button>
-                    <Button variant="outline" className="w-full justify-start text-slate-600" onClick={() => window.location.href = 'mailto:support@engineerlab.ai'}>
+                    <Button variant="outline" className="w-full justify-start text-slate-600 dark:text-slate-300" onClick={() => window.location.href = 'mailto:support@engineerlab.ai'}>
                         <Mail size={16} className="mr-2" /> Contact Support
                     </Button>
                 </CardContent>
@@ -195,7 +190,7 @@ export default function Settings() {
                         UM
                     </div>
                 </div>
-                <h3 className="font-bold text-slate-900">UnitMaster Pro</h3>
+                <h3 className="font-bold text-slate-900 dark:text-gray-100">UnitMaster Pro</h3>
                 <p className="text-xs text-slate-500">Version 1.2.0 (PWA)</p>
                 <p className="text-xs text-slate-400">&copy; 2026 EngineerLab AI</p>
             </div>

@@ -1,16 +1,33 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ArrowRightLeft, Copy, Star, Share2 } from 'lucide-react';
+import { ArrowRightLeft, Copy, Star, Share2, Info, Ruler, Scale, Gauge, Thermometer, Square, Box, Wind, Clock, HardDrive, Flame, Plug, Hammer, Activity } from 'lucide-react';
 import unitsData from '../data/units.json';
+import { familyInfo } from '../data/categoryInfo';
 import { convert } from '../utils/converter';
 import { safeEvaluate } from '../utils/math';
 import db from '../db/database';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { toast } from "sonner"
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+
+const iconMap = {
+    ruler: Ruler,
+    scale: Scale,
+    gauge: Gauge,
+    thermometer: Thermometer,
+    square: Square,
+    box: Box,
+    wind: Wind,
+    clock: Clock,
+    "hard-drive": HardDrive,
+    flame: Flame,
+    plug: Plug,
+    hammer: Hammer,
+    activity: Activity
+};
 
 export default function QuickConvert() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -22,6 +39,7 @@ export default function QuickConvert() {
     const [result, setResult] = useState('');
     const [rounding, setRounding] = useState(2);
     const [isFavorite, setIsFavorite] = useState(false);
+    const [showInfo, setShowInfo] = useState(false);
 
     const historyTimeoutRef = useRef(null);
 
@@ -55,6 +73,7 @@ export default function QuickConvert() {
     }, []);
 
     const currentUnits = unitsData[family] || [];
+    const currentInfo = familyInfo[family] || {};
 
     // Update units when family changes
     useEffect(() => {
@@ -163,6 +182,8 @@ export default function QuickConvert() {
         toast.success("Link copied to clipboard");
     }
 
+    const FamilyIcon = iconMap[currentInfo.icon] || Info;
+
     return (
         <div className="space-y-6 pb-24">
             {/* Family Selector */}
@@ -178,13 +199,39 @@ export default function QuickConvert() {
                         )}
                         <button
                             onClick={() => setFamily(f)}
-                            className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors z-0 ${family === f ? 'text-white' : 'text-slate-500 hover:text-indigo-600 bg-white dark:bg-slate-800'}`}
+                            className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors z-0 flex items-center gap-2 whitespace-nowrap ${family === f ? 'text-white' : 'text-slate-500 hover:text-indigo-600 bg-white dark:bg-slate-800'}`}
                         >
+                            {/* Short icon if needed */}
                             {f.charAt(0).toUpperCase() + f.slice(1)}
                         </button>
                     </div>
                 ))}
             </div>
+
+            {/* Info Banner */}
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={family}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="relative"
+                >
+                    <Card className="border-0 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900/50 mb-6 overflow-hidden">
+                        <CardContent className="p-4 flex items-start gap-4">
+                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl text-indigo-600 dark:text-indigo-400 shadow-sm">
+                                <FamilyIcon size={24} />
+                            </div>
+                            <div>
+                                <h3 className="font-bold text-indigo-900 dark:text-indigo-100 capitalize">{family}</h3>
+                                <p className="text-sm text-indigo-700/80 dark:text-indigo-200/70 mt-1">
+                                    {currentInfo.description || "Convert units seamlessly."}
+                                </p>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </motion.div>
+            </AnimatePresence>
 
             {/* Conversion Card */}
             <Card className="rounded-[2rem] border-0 shadow-2xl shadow-indigo-200/50 dark:shadow-none bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl relative overflow-visible">
