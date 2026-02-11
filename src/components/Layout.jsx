@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
 import { usePremium } from '../contexts/PremiumContext';
 import { Badge } from "@/components/ui/badge";
+import { GlobalSearch } from './GlobalSearch';
 
 export default function Layout({ children }) {
     const location = useLocation();
@@ -29,11 +30,14 @@ export default function Layout({ children }) {
                             </Badge>
                         )}
                     </Link>
-                    <Link to="/sets">
-                        <Button variant="ghost" size="icon" className="text-slate-500 hover:text-blue-600 transition-colors">
-                            <Gauge size={24} />
-                        </Button>
-                    </Link>
+                    <div className="flex items-center gap-1">
+                        <GlobalSearch />
+                        <Link to="/sets">
+                            <Button variant="ghost" size="icon" className="text-slate-500 hover:text-blue-600 transition-colors">
+                                <Gauge size={24} />
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
             </header>
             <main className="flex-1 max-w-md mx-auto w-full p-4 pt-4 animate-in fade-in slide-in-from-bottom-2 duration-500">

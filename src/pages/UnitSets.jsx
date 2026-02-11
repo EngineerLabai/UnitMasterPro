@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { Ruler, Scale, Gauge, Zap, Thermometer, Droplets, Hammer, Activity } from 'lucide-react';
+import {
+    Ruler, Scale, Gauge, Zap, Thermometer, Hammer, Activity,
+    Square, Box, Wind, Clock, HardDrive, Flame, Plug
+} from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -8,9 +11,16 @@ const categories = [
     { id: 'length', name: 'Length', icon: Ruler, description: 'Meter, Inch, Mile', popular: true },
     { id: 'mass', name: 'Mass', icon: Scale, description: 'Kilogram, Pound, Ounce', popular: true },
     { id: 'pressure', name: 'Pressure', icon: Gauge, description: 'Pascal, Bar, PSI', popular: true },
+    { id: 'temperature', name: 'Temperature', icon: Thermometer, description: 'Celsius, Fahrenheit, Kelvin', popular: true },
+    { id: 'area', name: 'Area', icon: Square, description: 'Square Meter, Acre', popular: false },
+    { id: 'volume', name: 'Volume', icon: Box, description: 'Liter, Gallon, m³', popular: false },
+    { id: 'speed', name: 'Speed', icon: Wind, description: 'm/s, km/h, mph', popular: false },
+    { id: 'time', name: 'Time', icon: Clock, description: 'Second, Hour, Year', popular: false },
+    { id: 'digital', name: 'Digital', icon: HardDrive, description: 'Byte, KB, MB, GB', popular: false },
+    { id: 'energy', name: 'Energy', icon: Flame, description: 'Joule, Calorie, kWh', popular: false },
+    { id: 'power', name: 'Power', icon: Plug, description: 'Watt, Horsepower', popular: false },
     { id: 'force', name: 'Force', icon: Hammer, description: 'Newton, Pound-force', popular: false },
     { id: 'torque', name: 'Torque', icon: Activity, description: 'Nm, lbf·ft', popular: false },
-    { id: 'temperature', name: 'Temperature', icon: Thermometer, description: 'Celsius, Fahrenheit, Kelvin', popular: true },
 ];
 
 export default function UnitSets() {

@@ -226,5 +226,323 @@
       "toSI": 0.5555555555555556,
       "offset": 459.67
     }
+  ],
+  "area": [
+    {
+      "id": "m2",
+      "name": "Square Meter",
+      "symbol": "m²",
+      "family": "area",
+      "toSI": 1,
+      "offset": 0
+    },
+    {
+      "id": "km2",
+      "name": "Square Kilometer",
+      "symbol": "km²",
+      "family": "area",
+      "toSI": 1000000,
+      "offset": 0
+    },
+    {
+      "id": "cm2",
+      "name": "Square Centimeter",
+      "symbol": "cm²",
+      "family": "area",
+      "toSI": 0.0001,
+      "offset": 0
+    },
+    {
+      "id": "ha",
+      "name": "Hectare",
+      "symbol": "ha",
+      "family": "area",
+      "toSI": 10000,
+      "offset": 0
+    },
+    {
+      "id": "ac",
+      "name": "Acre",
+      "symbol": "ac",
+      "family": "area",
+      "toSI": 4046.8564224,
+      "offset": 0
+    },
+    {
+      "id": "ft2",
+      "name": "Square Foot",
+      "symbol": "ft²",
+      "family": "area",
+      "toSI": 0.09290304,
+      "offset": 0
+    }
+  ],
+  "volume": [
+    {
+      "id": "m3",
+      "name": "Cubic Meter",
+      "symbol": "m³",
+      "family": "volume",
+      "toSI": 1,
+      "offset": 0
+    },
+    {
+      "id": "l",
+      "name": "Liter",
+      "symbol": "l",
+      "family": "volume",
+      "toSI": 0.001,
+      "offset": 0
+    },
+    {
+      "id": "ml",
+      "name": "Milliliter",
+      "symbol": "ml",
+      "family": "volume",
+      "toSI": 0.000001,
+      "offset": 0
+    },
+    {
+      "id": "gal",
+      "name": "US Gallon",
+      "symbol": "gal",
+      "family": "volume",
+      "toSI": 0.003785411784,
+      "offset": 0
+    },
+    {
+      "id": "ft3",
+      "name": "Cubic Foot",
+      "symbol": "ft³",
+      "family": "volume",
+      "toSI": 0.028316846592,
+      "offset": 0
+    }
+  ],
+  "speed": [
+    {
+      "id": "ms",
+      "name": "Meter per second",
+      "symbol": "m/s",
+      "family": "speed",
+      "toSI": 1,
+      "offset": 0
+    },
+    {
+      "id": "kmh",
+      "name": "Kilometer per hour",
+      "symbol": "km/h",
+      "family": "speed",
+      "toSI": 0.27777777777778,
+      "offset": 0
+    },
+    {
+      "id": "mph",
+      "name": "Mile per hour",
+      "symbol": "mph",
+      "family": "speed",
+      "toSI": 0.44704,
+      "offset": 0
+    },
+    {
+      "id": "kn",
+      "name": "Knot",
+      "symbol": "kn",
+      "family": "speed",
+      "toSI": 0.51444444444444,
+      "offset": 0
+    }
+  ],
+  "time": [
+    {
+      "id": "s",
+      "name": "Second",
+      "symbol": "s",
+      "family": "time",
+      "toSI": 1,
+      "offset": 0
+    },
+    {
+      "id": "min",
+      "name": "Minute",
+      "symbol": "min",
+      "family": "time",
+      "toSI": 60,
+      "offset": 0
+    },
+    {
+      "id": "h",
+      "name": "Hour",
+      "symbol": "h",
+      "family": "time",
+      "toSI": 3600,
+      "offset": 0
+    },
+    {
+      "id": "d",
+      "name": "Day",
+      "symbol": "d",
+      "family": "time",
+      "toSI": 86400,
+      "offset": 0
+    },
+    {
+      "id": "wk",
+      "name": "Week",
+      "symbol": "wk",
+      "family": "time",
+      "toSI": 604800,
+      "offset": 0
+    },
+    {
+      "id": "yr",
+      "name": "Year",
+      "symbol": "yr",
+      "family": "time",
+      "toSI": 31557600,
+      "offset": 0
+    }
+  ],
+  "digital": [
+    {
+      "id": "B",
+      "name": "Byte",
+      "symbol": "B",
+      "family": "digital",
+      "toSI": 1,
+      "offset": 0
+    },
+    {
+      "id": "KB",
+      "name": "Kilobyte",
+      "symbol": "KB",
+      "family": "digital",
+      "toSI": 1000,
+      "offset": 0
+    },
+    {
+      "id": "MB",
+      "name": "Megabyte",
+      "symbol": "MB",
+      "family": "digital",
+      "toSI": 1000000,
+      "offset": 0
+    },
+    {
+      "id": "GB",
+      "name": "Gigabyte",
+      "symbol": "GB",
+      "family": "digital",
+      "toSI": 1000000000,
+      "offset": 0
+    },
+    {
+      "id": "TB",
+      "name": "Terabyte",
+      "symbol": "TB",
+      "family": "digital",
+      "toSI": 1000000000000,
+      "offset": 0
+    },
+    {
+      "id": "KiB",
+      "name": "Kibibyte",
+      "symbol": "KiB",
+      "family": "digital",
+      "toSI": 1024,
+      "offset": 0
+    },
+    {
+      "id": "MiB",
+      "name": "Mebibyte",
+      "symbol": "MiB",
+      "family": "digital",
+      "toSI": 1048576,
+      "offset": 0
+    },
+    {
+      "id": "GiB",
+      "name": "Gibibyte",
+      "symbol": "GiB",
+      "family": "digital",
+      "toSI": 1073741824,
+      "offset": 0
+    }
+  ],
+  "energy": [
+    {
+      "id": "j",
+      "name": "Joule",
+      "symbol": "J",
+      "family": "energy",
+      "toSI": 1,
+      "offset": 0
+    },
+    {
+      "id": "kj",
+      "name": "Kilojoule",
+      "symbol": "kJ",
+      "family": "energy",
+      "toSI": 1000,
+      "offset": 0
+    },
+    {
+      "id": "cal",
+      "name": "Calorie",
+      "symbol": "cal",
+      "family": "energy",
+      "toSI": 4.184,
+      "offset": 0
+    },
+    {
+      "id": "kcal",
+      "name": "Kilocalorie",
+      "symbol": "kcal",
+      "family": "energy",
+      "toSI": 4184,
+      "offset": 0
+    },
+    {
+      "id": "wh",
+      "name": "Watt-hour",
+      "symbol": "Wh",
+      "family": "energy",
+      "toSI": 3600,
+      "offset": 0
+    },
+    {
+      "id": "kwh",
+      "name": "Kilowatt-hour",
+      "symbol": "kWh",
+      "family": "energy",
+      "toSI": 3600000,
+      "offset": 0
+    }
+  ],
+  "power": [
+    {
+      "id": "w",
+      "name": "Watt",
+      "symbol": "W",
+      "family": "power",
+      "toSI": 1,
+      "offset": 0
+    },
+    {
+      "id": "kw",
+      "name": "Kilowatt",
+      "symbol": "kW",
+      "family": "power",
+      "toSI": 1000,
+      "offset": 0
+    },
+    {
+      "id": "hp",
+      "name": "Horsepower (Imp)",
+      "symbol": "hp",
+      "family": "power",
+      "toSI": 745.69987158227,
+      "offset": 0
+    }
   ]
 }

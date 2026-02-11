@@ -1,4 +1,5 @@
 import { PremiumProvider } from './contexts/PremiumContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
@@ -19,8 +20,10 @@ const updateSW = registerSW({
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <PremiumProvider>
-      <App />
-    </PremiumProvider>
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <PremiumProvider>
+        <App />
+      </PremiumProvider>
+    </ThemeProvider>
   </StrictMode>,
 )

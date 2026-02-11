@@ -6,8 +6,10 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
 import { usePremium } from '../contexts/PremiumContext';
-import { Sparkles, CheckCircle2 } from 'lucide-react';
+import { useTheme } from '../contexts/ThemeContext';
+import { Sparkles, CheckCircle2, Trash2, Share2, Mail, RefreshCcw, Database } from 'lucide-react';
 import PaywallModal from '../components/PaywallModal';
+import { toast } from "sonner";
 
 export default function Settings() {
     const { isPremium, resetPremium } = usePremium();
@@ -44,6 +46,40 @@ export default function Settings() {
         setTimeout(() => setSaved(false), 2000);
     };
 
+    const clearData = async (type) => {
+        if (!confirm(`Are you sure you want to clear ${type}?`)) return;
+
+        try {
+            if (type === 'history') await db.history.clear();
+            if (type === 'favorites') await db.favorites.clear();
+            toast.success(`${type} cleared successfully`);
+        } catch (e) {
+            toast.error("Failed to clear data");
+        }
+    };
+
+    const factoryReset = async () => {
+        if (!confirm("Start FRESH? This will delete ALL data including local premium status.")) return;
+        await db.delete();
+        toast.info("App resetting...");
+        setTimeout(() => window.location.reload(), 1000);
+    };
+
+    const shareApp = async () => {
+        if (navigator.share) {
+            try {
+                await navigator.share({
+                    title: 'UnitMaster Pro',
+                    text: 'Check out this awesome unit converter!',
+                    url: window.location.origin
+                });
+            } catch (e) { }
+        } else {
+            navigator.clipboard.writeText(window.location.origin);
+            toast.success("Link copied to clipboard");
+        }
+    };
+
     return (
         <div className="space-y-6 animate-in fade-in pb-20">
             <PaywallModal isOpen={showPaywall} onClose={() => setShowPaywall(false)} />
@@ -74,14 +110,6 @@ export default function Settings() {
                             </Button>
                         )}
                     </div>
-                    {isPremium && (
-                        <button
-                            onClick={resetPremium}
-                            className="text-[10px] mt-4 opacity-50 hover:opacity-100 underline decoration-dotted"
-                        >
-                            Reset trial (Dev mode)
-                        </button>
-                    )}
                 </CardContent>
             </Card>
 
@@ -103,32 +131,72 @@ export default function Settings() {
                         onValueChange={handleRoundingChange}
                         className="py-2"
                     />
-                    <div className="p-3 bg-slate-50 rounded-lg text-center">
-                        <p className="text-xs text-slate-500">
-                            Example: 1.234567 → <span className="font-bold text-slate-900">{Number(1.234567).toFixed(settings.rounding)}</span>
-                        </p>
-                    </div>
                 </CardContent>
             </Card>
 
-            {/* Theme */}
-            <Card className="border-slate-100 shadow-sm opacity-50 relative overflow-hidden">
-                <div className="absolute inset-0 bg-slate-50/50 z-10 flex items-center justify-center">
-                    <span className="bg-white px-3 py-1 rounded-full text-xs font-bold shadow-sm text-slate-500">Coming Soon</span>
-                </div>
+            {/* Appearance */}
+            <Card className="border-slate-100 shadow-sm">
                 <CardHeader>
                     <CardTitle className="text-base">Appearance</CardTitle>
                 </CardHeader>
                 <CardContent className="flex items-center justify-between">
                     <Label htmlFor="dark-mode">Dark Mode</Label>
-                    <Switch id="dark-mode" disabled />
+                    <Switch
+                        id="dark-mode"
+                        checked={theme === 'dark'}
+                        onCheckedChange={(checked) => setTheme(checked ? 'dark' : 'light')}
+                    />
+                </CardContent>
+            </Card>
+
+            {/* Data Management */}
+            <Card className="border-slate-100 shadow-sm">
+                <CardHeader>
+                    <CardTitle className="text-base">Data Management</CardTitle>
+                    <CardDescription>Manage your local data.</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                    <Button variant="outline" className="w-full justify-start text-slate-600" onClick={() => clearData('history')}>
+                        <RefreshCcw size={16} className="mr-2" /> Clear History
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start text-slate-600" onClick={() => clearData('favorites')}>
+                        <Trash2 size={16} className="mr-2" /> Clear Favorites
+                    </Button>
+                    <Button variant="destructive" className="w-full justify-start bg-red-50 text-red-600 hover:bg-red-100 hover:text-red-700 border-red-100 shadow-none" onClick={factoryReset}>
+                        <Database size={16} className="mr-2" /> Factory Reset App
+                    </Button>
+                    {isPremium && (
+                        <Button variant="ghost" className="w-full justify-start text-slate-400 h-8 text-xs" onClick={resetPremium}>
+                            Reset Premium (Dev)
+                        </Button>
+                    )}
+                </CardContent>
+            </Card>
+
+            {/* Support */}
+            <Card className="border-slate-100 shadow-sm">
+                <CardHeader>
+                    <CardTitle className="text-base">Support</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                    <Button variant="outline" className="w-full justify-start text-slate-600" onClick={shareApp}>
+                        <Share2 size={16} className="mr-2" /> Share App
+                    </Button>
+                    <Button variant="outline" className="w-full justify-start text-slate-600" onClick={() => window.location.href = 'mailto:support@engineerlab.ai'}>
+                        <Mail size={16} className="mr-2" /> Contact Support
+                    </Button>
                 </CardContent>
             </Card>
 
             {/* About */}
             <div className="text-center py-8 space-y-2">
+                <div className="flex justify-center mb-2">
+                    <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 font-bold text-xl">
+                        UM
+                    </div>
+                </div>
                 <h3 className="font-bold text-slate-900">UnitMaster Pro</h3>
-                <p className="text-xs text-slate-500">Version 1.1.0 (PWA)</p>
+                <p className="text-xs text-slate-500">Version 1.2.0 (PWA)</p>
                 <p className="text-xs text-slate-400">&copy; 2026 EngineerLab AI</p>
             </div>
 
