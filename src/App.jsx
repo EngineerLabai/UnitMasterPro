@@ -4,6 +4,8 @@ import Currency from './pages/Currency';
 import Cooking from './pages/Cooking';
 import DateGap from './pages/DateGap';
 import BmiCalc from './pages/BmiCalc';
+import Discount from './pages/Discount';
+import BillSplitter from './pages/BillSplitter';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import QuickConvert from './pages/QuickConvert';
@@ -22,6 +24,8 @@ function App() {
           <Route path='/cooking' element={<Cooking />} />
           <Route path='/date' element={<DateGap />} />
           <Route path='/bmi' element={<BmiCalc />} />
+          <Route path='/discount' element={<Discount />} />
+          <Route path='/bill' element={<BillSplitter />} />
           <Route path='/constants' element={<Constants />} />
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/history' element={<History />} />

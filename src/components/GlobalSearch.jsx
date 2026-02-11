@@ -82,6 +82,14 @@ export function GlobalSearch() {
                             <Banknote className="mr-2 h-4 w-4" />
                             <span>Currency Converter</span>
                         </CommandItem>
+                        <CommandItem value="Discount & Tax Calculator" onSelect={() => runCommand(() => navigate('/discount'))}>
+                            <Percent className="mr-2 h-4 w-4" />
+                            <span>Discount & Tax Calculator</span>
+                        </CommandItem>
+                        <CommandItem value="Split Bill & Tip" onSelect={() => runCommand(() => navigate('/bill'))}>
+                            <Users className="mr-2 h-4 w-4" />
+                            <span>Split Bill & Tip</span>
+                        </CommandItem>
                         <CommandItem value="Cooking Converter" onSelect={() => runCommand(() => navigate('/cooking'))}>
                             <ChefHat className="mr-2 h-4 w-4" />
                             <span>Cooking Converter</span>

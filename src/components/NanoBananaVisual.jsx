@@ -9,6 +9,38 @@ const variants = {
 const NanoBananaVisual = ({ family }) => {
     const getVisual = () => {
         switch (family) {
+            case 'discount':
+                return (
+                    <svg viewBox="0 0 200 120" className="w-full h-full drop-shadow-lg">
+                        <defs>
+                            <linearGradient id="discGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stopColor="#4F46E5" />
+                                <stop offset="100%" stopColor="#818CF8" />
+                            </linearGradient>
+                        </defs>
+                        <circle cx="100" cy="60" r="40" fill="url(#discGrad)" opacity="0.1" />
+                        <rect x="60" y="40" width="80" height="40" rx="8" fill="url(#discGrad)" />
+                        <text x="100" y="68" fontSize="24" fontWeight="bold" fill="white" textAnchor="middle">% OFF</text>
+                        <path d="M130 30 L150 50 M130 50 L150 30" stroke="#F43F5E" strokeWidth="4" strokeLinecap="round" />
+                    </svg>
+                );
+            case 'bill':
+                return (
+                    <svg viewBox="0 0 200 120" className="w-full h-full drop-shadow-lg">
+                        <defs>
+                            <linearGradient id="billGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stopColor="#10B981" />
+                                <stop offset="100%" stopColor="#34D399" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="70" y="30" width="60" height="70" rx="4" fill="white" stroke="#E5E7EB" strokeWidth="2" />
+                        <line x1="80" y1="45" x2="120" y2="45" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" />
+                        <line x1="80" y1="55" x2="110" y2="55" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" />
+                        <line x1="80" y1="65" x2="120" y2="65" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" />
+                        <circle cx="140" cy="90" r="20" fill="url(#billGrad)" />
+                        <path d="M132 90 L138 96 L148 84" stroke="white" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                );
             case 'length':
                 return (
                     <svg viewBox="0 0 200 120" className="w-full h-full drop-shadow-lg">
