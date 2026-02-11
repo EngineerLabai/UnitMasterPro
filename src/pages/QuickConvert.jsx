@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ArrowRightLeft, Copy, Star, Share2, Info } from 'lucide-react';
-import unitsData from '../data/units.json';
-import { familyInfo } from '../data/categoryInfo';
+import unitsDataEn from '../data/units.json';
+import unitsDataTr from '../data/units_tr.json';
+import { familyInfo as familyInfoEn, familyInfoTr } from '../data/categoryInfo';
 import { convert } from '../utils/converter';
 import { safeEvaluate } from '../utils/math';
 import db from '../db/database';
@@ -13,9 +14,14 @@ import { Card, CardContent } from "@/components/ui/card"
 import { toast } from "sonner"
 import { motion, AnimatePresence } from "framer-motion";
 import NanoBananaVisual from '../components/NanoBananaVisual';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function QuickConvert() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const { t, language } = useLanguage();
+
+    const unitsData = language === 'tr' ? unitsDataTr : unitsDataEn;
+    const familyInfo = language === 'tr' ? familyInfoTr : familyInfoEn;
 
     const [amount, setAmount] = useState('1');
     const [family, setFamily] = useState('pressure');
@@ -35,16 +41,18 @@ export default function QuickConvert() {
 
             const v = searchParams.get('v');
             const f = searchParams.get('from');
-            const t = searchParams.get('to');
+            const tParam = searchParams.get('to');
             const familyParam = searchParams.get('family');
 
-            if (f && t) {
+            // Logic to find family based on IDs (IDs are shared across langs)
+            if (f && tParam) {
+                // Search in unitsData (which is current lang) - IDs match so it works
                 for (const fam in unitsData) {
                     const found = unitsData[fam].find(u => u.id === f);
                     if (found) {
                         setFamily(fam);
                         setFromUnitId(f);
-                        setToUnitId(t);
+                        setToUnitId(tParam);
                         break;
                     }
                 }
@@ -54,12 +62,12 @@ export default function QuickConvert() {
             }
         };
         loadInit();
-    }, []);
+    }, [unitsData]); // Re-run if unitsData changes (lang switch) to re-validate? actually IDs are same.
 
+    // Update units when family changes or lang changes
     const currentUnits = unitsData[family] || [];
     const currentInfo = familyInfo[family] || {};
 
-    // Update units when family changes
     useEffect(() => {
         const currentFromValid = currentUnits.find(u => u.id === fromUnitId);
         const currentToValid = currentUnits.find(u => u.id === toUnitId);
@@ -70,7 +78,7 @@ export default function QuickConvert() {
                 setToUnitId(currentUnits[1].id);
             }
         }
-    }, [family, currentUnits]);
+    }, [family, currentUnits, fromUnitId, toUnitId]);
 
     // Sync URL params
     useEffect(() => {
@@ -124,7 +132,7 @@ export default function QuickConvert() {
         return () => {
             if (historyTimeoutRef.current) clearTimeout(historyTimeoutRef.current);
         };
-    }, [amount, fromUnitId, toUnitId, family, rounding]);
+    }, [amount, fromUnitId, toUnitId, family, rounding, unitsData]);
 
     const checkFavorite = async (fId, tId) => {
         const exists = await db.favorites.where({ fromUnitId: fId, toUnitId: tId }).first();
@@ -135,7 +143,7 @@ export default function QuickConvert() {
         if (isFavorite) {
             await db.favorites.where({ fromUnitId, toUnitId }).delete();
             setIsFavorite(false);
-            toast.success("Removed from favorites");
+            toast.success(t('convert.fav_removed'));
         } else {
             await db.favorites.add({
                 fromUnitId,
@@ -143,7 +151,7 @@ export default function QuickConvert() {
                 timestamp: Date.now()
             });
             setIsFavorite(true);
-            toast.success("Added to favorites");
+            toast.success(t('convert.fav_added'));
         }
     };
 
@@ -156,14 +164,14 @@ export default function QuickConvert() {
     const copyResult = () => {
         if (result) {
             navigator.clipboard.writeText(result);
-            toast.success("Result copied to clipboard");
+            toast.success(t('convert.copied'));
         }
     };
 
     const shareLink = () => {
         const url = window.location.href;
         navigator.clipboard.writeText(url);
-        toast.success("Link copied to clipboard");
+        toast.success(t('convert.share'));
     }
 
     return (
@@ -183,7 +191,8 @@ export default function QuickConvert() {
                             onClick={() => setFamily(f)}
                             className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors z-0 flex items-center gap-2 whitespace-nowrap ${family === f ? 'text-white' : 'text-slate-500 hover:text-indigo-600 bg-white dark:bg-slate-800'}`}
                         >
-                            {f.charAt(0).toUpperCase() + f.slice(1)}
+                            {/* Family name translation: use language specific category info title or t() which maps families */}
+                            {t(`cat.${f}`) || f.charAt(0).toUpperCase() + f.slice(1)}
                         </button>
                     </div>
                 ))}
@@ -223,7 +232,7 @@ export default function QuickConvert() {
                                     <div className="bg-white/50 dark:bg-slate-800/50 rounded-lg p-3 text-xs border border-white/20 dark:border-slate-700/50 flex gap-2 items-start">
                                         <Info size={14} className="mt-0.5 shrink-0 text-indigo-500" />
                                         <span className="text-indigo-900 dark:text-indigo-200 font-medium">
-                                            <span className="font-bold opacity-70 block mb-1 uppercase tracking-wider text-[10px]">Did you know?</span>
+                                            <span className="font-bold opacity-70 block mb-1 uppercase tracking-wider text-[10px]">{t('convert.info')}</span>
                                             {currentInfo.fun_fact}
                                         </span>
                                     </div>
@@ -258,7 +267,7 @@ export default function QuickConvert() {
                 <CardContent className="p-8 space-y-8">
                     {/* From Section */}
                     <div className="space-y-3">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">From</label>
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">{t('convert.from')}</label>
                         <div className="flex gap-4 items-center">
                             <Input
                                 type="text"
@@ -299,7 +308,7 @@ export default function QuickConvert() {
 
                     {/* To Section */}
                     <div className="space-y-3">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">To</label>
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">{t('convert.to')}</label>
                         <div className="flex gap-4 items-center">
                             <div className="w-full text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 break-all select-all tracking-tight">
                                 {result || '...'}
@@ -332,7 +341,7 @@ export default function QuickConvert() {
                     size="lg"
                 >
                     <Copy size={20} className="mr-2" />
-                    Copy Result
+                    {t('convert.copy')}
                 </Button>
             </motion.div>
         </div>

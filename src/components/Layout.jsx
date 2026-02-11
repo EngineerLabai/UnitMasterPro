@@ -5,6 +5,7 @@ import InstallPrompt from './InstallPrompt';
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { usePremium } from '../contexts/PremiumContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { Badge } from "@/components/ui/badge";
 import { GlobalSearch } from './GlobalSearch';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +13,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function Layout({ children }) {
     const location = useLocation();
     const { isPremium } = usePremium();
+    const { language, setLanguage } = useLanguage();
 
     const isActive = (path) => location.pathname === path;
 
@@ -21,6 +23,10 @@ export default function Layout({ children }) {
         { path: '/history', icon: HistoryIcon, label: 'History' },
         { path: '/settings', icon: Settings, label: 'Settings' },
     ];
+
+    const toggleLanguage = () => {
+        setLanguage(language === 'en' ? 'tr' : 'en');
+    };
 
     return (
         <div className="min-h-screen bg-background text-foreground flex flex-col font-sans relative overflow-hidden transition-colors duration-500">
@@ -53,6 +59,18 @@ export default function Layout({ children }) {
                     </Link>
 
                     <div className="flex items-center gap-2">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={toggleLanguage}
+                            className="rounded-full w-8 h-8 overflow-hidden border border-slate-200 dark:border-slate-700 p-0 hover:opacity-80 transition-opacity"
+                        >
+                            {language === 'en' ? (
+                                <span className="text-xl">🇬🇧</span>
+                            ) : (
+                                <span className="text-xl">🇹🇷</span>
+                            )}
+                        </Button>
                         <GlobalSearch />
                         <Link to="/sets">
                             <Button variant="ghost" size="icon" className="rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">

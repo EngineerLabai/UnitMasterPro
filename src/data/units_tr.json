@@ -1,0 +1,548 @@
+{
+    "length": [
+        {
+            "id": "m",
+            "name": "Metre",
+            "symbol": "m",
+            "family": "length",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "cm",
+            "name": "Santimetre",
+            "symbol": "cm",
+            "family": "length",
+            "toSI": 0.01,
+            "offset": 0
+        },
+        {
+            "id": "mm",
+            "name": "Milimetre",
+            "symbol": "mm",
+            "family": "length",
+            "toSI": 0.001,
+            "offset": 0
+        },
+        {
+            "id": "km",
+            "name": "Kilometre",
+            "symbol": "km",
+            "family": "length",
+            "toSI": 1000,
+            "offset": 0
+        },
+        {
+            "id": "in",
+            "name": "İnç",
+            "symbol": "in",
+            "family": "length",
+            "toSI": 0.0254,
+            "offset": 0
+        },
+        {
+            "id": "ft",
+            "name": "Ayak (Fit)",
+            "symbol": "ft",
+            "family": "length",
+            "toSI": 0.3048,
+            "offset": 0
+        },
+        {
+            "id": "yd",
+            "name": "Yarda",
+            "symbol": "yd",
+            "family": "length",
+            "toSI": 0.9144,
+            "offset": 0
+        },
+        {
+            "id": "mi",
+            "name": "Mil",
+            "symbol": "mi",
+            "family": "length",
+            "toSI": 1609.344,
+            "offset": 0
+        }
+    ],
+    "mass": [
+        {
+            "id": "kg",
+            "name": "Kilogram",
+            "symbol": "kg",
+            "family": "mass",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "g",
+            "name": "Gram",
+            "symbol": "g",
+            "family": "mass",
+            "toSI": 0.001,
+            "offset": 0
+        },
+        {
+            "id": "mg",
+            "name": "Miligram",
+            "symbol": "mg",
+            "family": "mass",
+            "toSI": 0.000001,
+            "offset": 0
+        },
+        {
+            "id": "lb",
+            "name": "Pound (libre)",
+            "symbol": "lb",
+            "family": "mass",
+            "toSI": 0.45359237,
+            "offset": 0
+        },
+        {
+            "id": "oz",
+            "name": "Ons",
+            "symbol": "oz",
+            "family": "mass",
+            "toSI": 0.028349523125,
+            "offset": 0
+        }
+    ],
+    "pressure": [
+        {
+            "id": "pa",
+            "name": "Pascal",
+            "symbol": "Pa",
+            "family": "pressure",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "mpa",
+            "name": "Megapascal",
+            "symbol": "MPa",
+            "family": "pressure",
+            "toSI": 1000000,
+            "offset": 0
+        },
+        {
+            "id": "kpa",
+            "name": "Kilopascal",
+            "symbol": "kPa",
+            "family": "pressure",
+            "toSI": 1000,
+            "offset": 0
+        },
+        {
+            "id": "bar",
+            "name": "Bar",
+            "symbol": "bar",
+            "family": "pressure",
+            "toSI": 100000,
+            "offset": 0
+        },
+        {
+            "id": "psi",
+            "name": "Pound bölü inç kare",
+            "symbol": "psi",
+            "family": "pressure",
+            "toSI": 6894.757293168,
+            "offset": 0
+        },
+        {
+            "id": "atm",
+            "name": "Atmosfer",
+            "symbol": "atm",
+            "family": "pressure",
+            "toSI": 101325,
+            "offset": 0
+        }
+    ],
+    "force": [
+        {
+            "id": "n",
+            "name": "Newton",
+            "symbol": "N",
+            "family": "force",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "kn",
+            "name": "Kilonewton",
+            "symbol": "kN",
+            "family": "force",
+            "toSI": 1000,
+            "offset": 0
+        },
+        {
+            "id": "lbf",
+            "name": "Pound-kuvvet",
+            "symbol": "lbf",
+            "family": "force",
+            "toSI": 4.4482216152605,
+            "offset": 0
+        }
+    ],
+    "torque": [
+        {
+            "id": "nm",
+            "name": "Newton Metre",
+            "symbol": "N·m",
+            "family": "torque",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "lbfft",
+            "name": "Pound-kuvvet Fit",
+            "symbol": "lbf·ft",
+            "family": "torque",
+            "toSI": 1.3558179483314004,
+            "offset": 0
+        }
+    ],
+    "temperature": [
+        {
+            "id": "k",
+            "name": "Kelvin",
+            "symbol": "K",
+            "family": "temperature",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "c",
+            "name": "Santigrat",
+            "symbol": "°C",
+            "family": "temperature",
+            "toSI": 1,
+            "offset": 273.15
+        },
+        {
+            "id": "f",
+            "name": "Fahrenhayt",
+            "symbol": "°F",
+            "family": "temperature",
+            "toSI": 0.5555555555555556,
+            "offset": 459.67
+        }
+    ],
+    "area": [
+        {
+            "id": "m2",
+            "name": "Metrekare",
+            "symbol": "m²",
+            "family": "area",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "km2",
+            "name": "Kilometrekare",
+            "symbol": "km²",
+            "family": "area",
+            "toSI": 1000000,
+            "offset": 0
+        },
+        {
+            "id": "cm2",
+            "name": "Santimetrekare",
+            "symbol": "cm²",
+            "family": "area",
+            "toSI": 0.0001,
+            "offset": 0
+        },
+        {
+            "id": "ha",
+            "name": "Hektar",
+            "symbol": "ha",
+            "family": "area",
+            "toSI": 10000,
+            "offset": 0
+        },
+        {
+            "id": "ac",
+            "name": "Akre",
+            "symbol": "ac",
+            "family": "area",
+            "toSI": 4046.8564224,
+            "offset": 0
+        },
+        {
+            "id": "ft2",
+            "name": "Kare Fit",
+            "symbol": "ft²",
+            "family": "area",
+            "toSI": 0.09290304,
+            "offset": 0
+        }
+    ],
+    "volume": [
+        {
+            "id": "m3",
+            "name": "Metreküp",
+            "symbol": "m³",
+            "family": "volume",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "l",
+            "name": "Litre",
+            "symbol": "l",
+            "family": "volume",
+            "toSI": 0.001,
+            "offset": 0
+        },
+        {
+            "id": "ml",
+            "name": "Mililitre",
+            "symbol": "ml",
+            "family": "volume",
+            "toSI": 0.000001,
+            "offset": 0
+        },
+        {
+            "id": "gal",
+            "name": "ABD Galonu",
+            "symbol": "gal",
+            "family": "volume",
+            "toSI": 0.003785411784,
+            "offset": 0
+        },
+        {
+            "id": "ft3",
+            "name": "Küp Fit",
+            "symbol": "ft³",
+            "family": "volume",
+            "toSI": 0.028316846592,
+            "offset": 0
+        }
+    ],
+    "speed": [
+        {
+            "id": "ms",
+            "name": "Metre bölü saniye",
+            "symbol": "m/s",
+            "family": "speed",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "kmh",
+            "name": "Kilometre bölü saat",
+            "symbol": "km/h",
+            "family": "speed",
+            "toSI": 0.27777777777778,
+            "offset": 0
+        },
+        {
+            "id": "mph",
+            "name": "Mil bölü saat",
+            "symbol": "mph",
+            "family": "speed",
+            "toSI": 0.44704,
+            "offset": 0
+        },
+        {
+            "id": "kn",
+            "name": "Knot",
+            "symbol": "kn",
+            "family": "speed",
+            "toSI": 0.51444444444444,
+            "offset": 0
+        }
+    ],
+    "time": [
+        {
+            "id": "s",
+            "name": "Saniye",
+            "symbol": "s",
+            "family": "time",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "min",
+            "name": "Dakika",
+            "symbol": "min",
+            "family": "time",
+            "toSI": 60,
+            "offset": 0
+        },
+        {
+            "id": "h",
+            "name": "Saat",
+            "symbol": "h",
+            "family": "time",
+            "toSI": 3600,
+            "offset": 0
+        },
+        {
+            "id": "d",
+            "name": "Gün",
+            "symbol": "d",
+            "family": "time",
+            "toSI": 86400,
+            "offset": 0
+        },
+        {
+            "id": "wk",
+            "name": "Hafta",
+            "symbol": "wk",
+            "family": "time",
+            "toSI": 604800,
+            "offset": 0
+        },
+        {
+            "id": "yr",
+            "name": "Yıl",
+            "symbol": "yr",
+            "family": "time",
+            "toSI": 31557600,
+            "offset": 0
+        }
+    ],
+    "digital": [
+        {
+            "id": "B",
+            "name": "Bayt",
+            "symbol": "B",
+            "family": "digital",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "KB",
+            "name": "Kilobayt",
+            "symbol": "KB",
+            "family": "digital",
+            "toSI": 1000,
+            "offset": 0
+        },
+        {
+            "id": "MB",
+            "name": "Megabayt",
+            "symbol": "MB",
+            "family": "digital",
+            "toSI": 1000000,
+            "offset": 0
+        },
+        {
+            "id": "GB",
+            "name": "Gigabayt",
+            "symbol": "GB",
+            "family": "digital",
+            "toSI": 1000000000,
+            "offset": 0
+        },
+        {
+            "id": "TB",
+            "name": "Terabayt",
+            "symbol": "TB",
+            "family": "digital",
+            "toSI": 1000000000000,
+            "offset": 0
+        },
+        {
+            "id": "KiB",
+            "name": "Kibibayt",
+            "symbol": "KiB",
+            "family": "digital",
+            "toSI": 1024,
+            "offset": 0
+        },
+        {
+            "id": "MiB",
+            "name": "Mebibayt",
+            "symbol": "MiB",
+            "family": "digital",
+            "toSI": 1048576,
+            "offset": 0
+        },
+        {
+            "id": "GiB",
+            "name": "Gibibayt",
+            "symbol": "GiB",
+            "family": "digital",
+            "toSI": 1073741824,
+            "offset": 0
+        }
+    ],
+    "energy": [
+        {
+            "id": "j",
+            "name": "Joule",
+            "symbol": "J",
+            "family": "energy",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "kj",
+            "name": "Kilojoule",
+            "symbol": "kJ",
+            "family": "energy",
+            "toSI": 1000,
+            "offset": 0
+        },
+        {
+            "id": "cal",
+            "name": "Kalori",
+            "symbol": "cal",
+            "family": "energy",
+            "toSI": 4.184,
+            "offset": 0
+        },
+        {
+            "id": "kcal",
+            "name": "Kilokalori",
+            "symbol": "kcal",
+            "family": "energy",
+            "toSI": 4184,
+            "offset": 0
+        },
+        {
+            "id": "wh",
+            "name": "Watt-saat",
+            "symbol": "Wh",
+            "family": "energy",
+            "toSI": 3600,
+            "offset": 0
+        },
+        {
+            "id": "kwh",
+            "name": "Kilowatt-saat",
+            "symbol": "kWh",
+            "family": "energy",
+            "toSI": 3600000,
+            "offset": 0
+        }
+    ],
+    "power": [
+        {
+            "id": "w",
+            "name": "Watt",
+            "symbol": "W",
+            "family": "power",
+            "toSI": 1,
+            "offset": 0
+        },
+        {
+            "id": "kw",
+            "name": "Kilowatt",
+            "symbol": "kW",
+            "family": "power",
+            "toSI": 1000,
+            "offset": 0
+        },
+        {
+            "id": "hp",
+            "name": "Beygir Gücü",
+            "symbol": "hp",
+            "family": "power",
+            "toSI": 745.69987158227,
+            "offset": 0
+        }
+    ]
+}

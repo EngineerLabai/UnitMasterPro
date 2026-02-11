@@ -102,5 +102,144 @@ export const familyInfo = {
         fun_fact: "Electric cars often have instant torque, which is why they accelerate so quickly from a standstill.",
         icon: "activity",
         color: "from-pink-500 to-rose-400"
+    },
+    discount: {
+        title: "Discount & Tax",
+        description: "Calculate final price.",
+        detailed_desc: "Calculate the final price of an item after applying discounts and sales tax.",
+        fun_fact: "The world's first coupon was created by Coca-Cola in 1887.",
+        icon: "percent",
+        color: "from-indigo-400 to-blue-300"
+    },
+    bill: {
+        title: "Split Bill & Tip",
+        description: "Split expenses easily.",
+        detailed_desc: "Split the bill among friends and calculate the tip.",
+        fun_fact: "Tipping originated in feudal Europe.",
+        icon: "users",
+        color: "from-purple-400 to-pink-300"
+    }
+};
+
+export const familyInfoTr = {
+    length: {
+        title: "Uzunluk & Mesafe",
+        description: "Bir nesnenin bir boyutunun ölçüsü.",
+        detailed_desc: "Uzunluk, bir nesnenin en uzun boyutudur. Uluslararası Birim Sistemi'nde (SI) temel uzunluk birimi metredir ve vakumdaki ışık hızıyla tanımlanır.",
+        fun_fact: "Işık yılı aslında bir zaman değil, mesafe ölçüsüdür! Yaklaşık 9.46 trilyon kilometredir.",
+        icon: "ruler",
+        color: "from-blue-400 to-cyan-300"
+    },
+    mass: {
+        title: "Kütle & Ağırlık",
+        description: "Madde miktarını temsil eden boyutsuz nicelik.",
+        detailed_desc: "Kütle, bir cismin içsel özelliğidir. Ağırlığın aksine, kütle yerçekimiyle değişmez. Kilogram SI temel birimidir ve artık Planck sabiti ile tanımlanır.",
+        fun_fact: "Kütleniz Ay'da da Dünya'dakiyle aynıdır, ancak ağırlığınız Dünya'dakinin %16.5'i kadar olur.",
+        icon: "scale",
+        color: "from-green-400 to-emerald-300"
+    },
+    pressure: {
+        title: "Basınç",
+        description: "Bir yüzeye dik olarak uygulanan kuvvet.",
+        detailed_desc: "Basınç, birim alana uygulanan kuvvet miktarıdır. Akışkanlar dinamiği, hava tahmini ve mühendislikte çok önemlidir. SI birimi Pascal'dır (Pa).",
+        fun_fact: "Dünyanın merkezindeki basınç yaklaşık 3.6 milyon atmosferdir (atm).",
+        icon: "gauge",
+        color: "from-amber-400 to-orange-300"
+    },
+    temperature: {
+        title: "Sıcaklık",
+        description: "Sıcak ve soğuğu ifade eden fiziksel nicelik.",
+        detailed_desc: "Sıcaklık, bir maddedeki parçacıkların ortalama kinetik enerjisini ölçer. Mutlak Sıfır (0 Kelvin), tüm moleküler hareketin durduğu teorik noktadır.",
+        fun_fact: "-40 derece Santigrat, -40 derece Fahrenheit ile tamamen aynı sıcaklıktır.",
+        icon: "thermometer",
+        color: "from-red-400 to-rose-300"
+    },
+    area: {
+        title: "Alan",
+        description: "Düzlemdeki bir bölgenin büyüklüğü.",
+        detailed_desc: "Alan, düzlemdeki iki boyutlu bir bölgenin, şeklin veya düzlemsel laminanın büyüklüğünü ifade eden niceliktir. Uzunluktan türetilir.",
+        fun_fact: "Rusya, Plüton gezegeninden daha büyük bir yüzey alanına sahiptir.",
+        icon: "square",
+        color: "from-indigo-400 to-purple-300"
+    },
+    volume: {
+        title: "Hacim",
+        description: "3B bir nesnenin kapladığı alan.",
+        detailed_desc: "Hacim, kapalı bir yüzey tarafından çevrelenen üç boyutlu alanı nicelendirir. SI birimi metreküptür, ancak sıvılar için genellikle litre kullanılır.",
+        fun_fact: "Büyük Kanyon'u patlamış mısırla doldurmak isteseydiniz, yaklaşık 2400 kilometreküp mısıra ihtiyacınız olurdu.",
+        icon: "box",
+        color: "from-teal-400 to-cyan-300"
+    },
+    speed: {
+        title: "Hız & Sürat",
+        description: "Konumun değişim oranı.",
+        detailed_desc: "Sürat, 'bir nesnenin ne kadar hızlı hareket ettiğini' ifade eden skaler bir niceliktir, hız ise yönü de içeren vektörel bir niceliktir. Işık hızı kozmik hız sınırıdır.",
+        fun_fact: "SR-71 Blackbird, Mach 3'ün üzerine çıkan en hızlı insanlı hava soluyan jet uçağıdır.",
+        icon: "wind",
+        color: "from-sky-400 to-blue-300"
+    },
+    time: {
+        title: "Zaman",
+        description: "Olayların belirsiz süregelen ilerleyişi.",
+        detailed_desc: "Zaman genellikle dördüncü boyut olarak adlandırılır. SI birimi saniyedir ve sezyum-133 atomunun radyasyon döngüleri ile tanımlanır.",
+        fun_fact: "Bir 'jiffy' (an), aslında bir zaman birimidir: saniyenin 1/100'ü.",
+        icon: "clock",
+        color: "from-violet-400 to-fuchsia-300"
+    },
+    digital: {
+        title: "Dijital Depolama",
+        description: "Veri bilgi birimleri.",
+        detailed_desc: "Dijital depolama birimleri verinin boyutunu ölçer. Bit'ten (0 veya 1) Yottabyte'a kadar veri katlanarak artar. 8 bit bir bayt eder.",
+        fun_fact: "IBM tarafından 1980'de duyurulan ilk 1GB sabit disk, 225 kg ağırlığındaydı ve fiyatı 40.000 dolardı.",
+        icon: "hard-drive",
+        color: "from-zinc-400 to-slate-300"
+    },
+    energy: {
+        title: "Enerji",
+        description: "İş yapabilme kapasitesi.",
+        detailed_desc: "Enerji birçok biçimde bulunur: kinetik, potansiyel, termal, kimyasal vb. Enerjinin Korunumu Yasası, enerjinin yaratılamayacağını veya yok edilemeyeceğini, sadece dönüşebileceğini belirtir.",
+        fun_fact: "Tek bir yıldırım düşmesi, 100.000 dilim ekmeği kızartmaya yetecek kadar enerji içerir.",
+        icon: "flame",
+        color: "from-yellow-400 to-amber-300"
+    },
+    power: {
+        title: "Güç",
+        description: "İş yapma oranı.",
+        detailed_desc: "Güç, enerjinin aktarım veya dönüşüm oranıdır. Fizikte, işin zamana bölümüdür. Watt, SI birimidir.",
+        fun_fact: "Bir beygir gücü yaklaşık 746 watttır. James Watt tarafından buhar makinelerini pazarlamak için türetilmiştir.",
+        icon: "plug",
+        color: "from-lime-400 to-green-300"
+    },
+    force: {
+        title: "Kuvvet",
+        description: "Hareketi değiştiren etkileşim.",
+        detailed_desc: "Kuvvet, karşı konulmadığında bir nesnenin hareketini değiştirecek herhangi bir etkileşimdir. F=ma (Kuvvet = kütle x ivme) Newton'un ikinci yasasıdır.",
+        fun_fact: "Ortalama bir fili kaldırmak için yaklaşık 100.000 Newton'luk bir kuvvet gerekir.",
+        icon: "hammer",
+        color: "from-orange-500 to-red-400"
+    },
+    torque: {
+        title: "Tork",
+        description: "Dönme kuvveti.",
+        detailed_desc: "Tork, doğrusal kuvvetin dönme karşılığıdır. Bir kuvvettin bir nesneye etki ederek o nesneyi ne kadar döndürdüğünü ölçer.",
+        fun_fact: "Elektrikli arabalar genellikle anlık torka sahiptir, bu yüzden durduğu yerden çok hızlı hızlanırlar.",
+        icon: "activity",
+        color: "from-pink-500 to-rose-400"
+    },
+    discount: {
+        title: "İndirim & Vergi",
+        description: "Son fiyatı hesapla.",
+        detailed_desc: "İndirimler ve satış vergisi uygulandıktan sonra bir ürünün son fiyatını hesaplayın.",
+        fun_fact: "Dünyanın ilk kuponu 1887'de Coca-Cola tarafından oluşturuldu.",
+        icon: "percent",
+        color: "from-indigo-400 to-blue-300"
+    },
+    bill: {
+        title: "Hesap Bölüş & Bahşiş",
+        description: "Hesabı kolayca böl.",
+        detailed_desc: "Hesabı arkadaşlarınız arasında bölün ve bahşişi hesaplayın.",
+        fun_fact: "Bahşiş verme geleneği feodal Avrupa'da ortaya çıkmıştır.",
+        icon: "users",
+        color: "from-purple-400 to-pink-300"
     }
 };
