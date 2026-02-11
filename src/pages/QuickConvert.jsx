@@ -10,12 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
 import { toast } from "sonner"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { motion } from "framer-motion";
 
 export default function QuickConvert() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -54,14 +49,10 @@ export default function QuickConvert() {
                 if (v) setAmount(v);
             } else if (familyParam && unitsData[familyParam]) {
                 setFamily(familyParam);
-            } else {
-                // Only set default if state isn't already set (avoid overwrite on re-renders if not needed)
-                // But here we want to ensure first load works.
-                // Let's rely on dependent useEffect for unit setting if family changes
             }
         };
         loadInit();
-    }, []); // Run once on mount
+    }, []);
 
     const currentUnits = unitsData[family] || [];
 
@@ -70,7 +61,6 @@ export default function QuickConvert() {
         const currentFromValid = currentUnits.find(u => u.id === fromUnitId);
         const currentToValid = currentUnits.find(u => u.id === toUnitId);
 
-        // If current units not in new family, switch to defaults of new family
         if (!currentFromValid || !currentToValid) {
             if (currentUnits.length >= 2) {
                 setFromUnitId(currentUnits[0].id);
@@ -79,7 +69,7 @@ export default function QuickConvert() {
         }
     }, [family, currentUnits]);
 
-    // Sync URL params when state changes (Deep Link ready state)
+    // Sync URL params
     useEffect(() => {
         if (fromUnitId && toUnitId) {
             const newParams = { from: fromUnitId, to: toUnitId };
@@ -98,9 +88,6 @@ export default function QuickConvert() {
         const numericValue = safeEvaluate(amount);
 
         if (isNaN(numericValue)) {
-            // Check if it's just partially typed text, usually don't clear, just show ... or error?
-            // For now, let's keep result as empty or previous valid? 
-            // Better to show '...' if invalid math
             setResult('...');
             return;
         }
@@ -113,15 +100,12 @@ export default function QuickConvert() {
 
         if (from && to) {
             const res = convert(numericValue, from, to);
-            // Handle massive numbers or tiny numbers better
             let displayRes = Number(res).toFixed(rounding).replace(/\.?0+$/, '');
             if (displayRes === 'NaN') displayRes = 'Error';
 
             setResult(displayRes);
-
             checkFavorite(from.id, to.id);
 
-            // Only add to history if it's a valid number and user stopped typing
             if (historyTimeoutRef.current) clearTimeout(historyTimeoutRef.current);
             historyTimeoutRef.current = setTimeout(async () => {
                 await db.history.add({
@@ -180,62 +164,68 @@ export default function QuickConvert() {
     }
 
     return (
-        <div className="space-y-6 animate-in fade-in duration-500 pb-24">
+        <div className="space-y-6 pb-24">
             {/* Family Selector */}
-            <div className="flex overflow-x-auto pb-2 gap-2 no-scrollbar" style={{ scrollbarWidth: 'none' }}>
+            <div className="flex overflow-x-auto pb-4 gap-2 no-scrollbar px-1 pt-2 mask-linear">
                 {Object.keys(unitsData).map(f => (
-                    <Button
-                        key={f}
-                        variant={family === f ? "default" : "outline"}
-                        onClick={() => setFamily(f)}
-                        className="rounded-full flex-shrink-0"
-                        size="sm"
-                    >
-                        {f.charAt(0).toUpperCase() + f.slice(1)}
-                    </Button>
+                    <div key={f} className="relative">
+                        {family === f && (
+                            <motion.div
+                                layoutId="active-pill"
+                                className="absolute inset-0 bg-indigo-600 rounded-full shadow-lg shadow-indigo-500/30 -z-10"
+                                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                            />
+                        )}
+                        <button
+                            onClick={() => setFamily(f)}
+                            className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors z-0 ${family === f ? 'text-white' : 'text-slate-500 hover:text-indigo-600 bg-white dark:bg-slate-800'}`}
+                        >
+                            {f.charAt(0).toUpperCase() + f.slice(1)}
+                        </button>
+                    </div>
                 ))}
             </div>
 
             {/* Conversion Card */}
-            <Card className="rounded-3xl shadow-xl border-slate-100 overflow-visible relative">
-                <div className="absolute top-2 right-2 flex gap-1">
+            <Card className="rounded-[2rem] border-0 shadow-2xl shadow-indigo-200/50 dark:shadow-none bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl relative overflow-visible">
+                <div className="absolute top-4 right-4 flex gap-1 z-20">
                     <Button
                         size="icon"
                         variant="ghost"
                         onClick={shareLink}
-                        className="rounded-full text-slate-300 hover:text-blue-600 hover:bg-blue-50"
+                        className="rounded-full text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 dark:hover:bg-slate-700"
                     >
-                        <Share2 size={20} />
+                        <Share2 size={18} />
                     </Button>
                     <Button
                         size="icon"
                         variant="ghost"
                         onClick={toggleFavorite}
-                        className={`rounded-full hover:bg-yellow-50 ${isFavorite ? 'text-yellow-400' : 'text-slate-300'}`}
+                        className={`rounded-full hover:bg-amber-50 dark:hover:bg-slate-700 ${isFavorite ? 'text-amber-400' : 'text-slate-400'}`}
                     >
-                        <Star size={20} fill={isFavorite ? "currentColor" : "none"} />
+                        <Star size={18} fill={isFavorite ? "currentColor" : "none"} />
                     </Button>
                 </div>
 
-                <CardContent className="p-6 space-y-6 pt-12">
+                <CardContent className="p-8 space-y-8">
                     {/* From Section */}
-                    <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">From</label>
+                    <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">From</label>
                         <div className="flex gap-4 items-center">
                             <Input
                                 type="text"
                                 inputMode="decimal"
                                 value={amount}
                                 onChange={(e) => setAmount(e.target.value)}
-                                className="text-3xl font-bold h-auto py-2 border-0 shadow-none focus-visible:ring-0 px-0 bg-transparent placeholder:text-slate-200"
+                                className="text-4xl font-black h-auto py-2 border-0 shadow-none focus-visible:ring-0 px-0 bg-transparent placeholder:text-slate-200 text-slate-800 dark:text-slate-100 tracking-tight"
                                 placeholder="0"
                             />
-                            <div className="flex flex-col items-end min-w-[120px]">
+                            <div className="flex flex-col items-end min-w-[130px]">
                                 <Select value={fromUnitId} onValueChange={setFromUnitId}>
-                                    <SelectTrigger className="w-[140px] text-right justify-end font-bold bg-slate-50 border-slate-200">
+                                    <SelectTrigger className="w-full text-right justify-end font-bold bg-slate-50 dark:bg-slate-700 border-0 rounded-xl h-10 px-3 hover:bg-slate-100 focus:ring-0">
                                         <SelectValue placeholder="Unit" />
                                     </SelectTrigger>
-                                    <SelectContent align="end">
+                                    <SelectContent align="end" className="max-h-[300px]">
                                         {currentUnits.map(u => (
                                             <SelectItem key={u.id} value={u.id}>
                                                 <span className="font-medium">{u.symbol}</span>
@@ -248,34 +238,30 @@ export default function QuickConvert() {
                         </div>
                     </div>
 
-                    {/* Swap Divider */}
-                    <div className="relative h-4 flex items-center justify-center">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-slate-100"></div>
-                        </div>
+                    {/* Funky Divider */}
+                    <div className="relative h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-slate-600 to-transparent flex items-center justify-center my-2">
                         <Button
                             onClick={handleSwap}
                             size="icon"
-                            className="relative z-10 rounded-full h-10 w-10 shadow-sm"
-                            variant="outline"
+                            className="absolute bg-white dark:bg-slate-700 border border-slate-100 dark:border-slate-600 rounded-full h-12 w-12 shadow-md hover:scale-110 hover:shadow-lg hover:border-indigo-100 transition-all text-indigo-500"
                         >
-                            <ArrowRightLeft size={16} className="text-blue-600" />
+                            <ArrowRightLeft size={20} />
                         </Button>
                     </div>
 
                     {/* To Section */}
-                    <div className="space-y-2">
-                        <label className="text-xs font-bold text-slate-400 uppercase tracking-wider">To</label>
+                    <div className="space-y-3">
+                        <label className="text-xs font-bold text-slate-400 uppercase tracking-widest pl-1">To</label>
                         <div className="flex gap-4 items-center">
-                            <div className="w-full text-3xl font-bold text-blue-600 break-all select-all">
+                            <div className="w-full text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-600 dark:from-indigo-400 dark:to-violet-400 break-all select-all tracking-tight">
                                 {result || '...'}
                             </div>
-                            <div className="flex flex-col items-end min-w-[120px]">
+                            <div className="flex flex-col items-end min-w-[130px]">
                                 <Select value={toUnitId} onValueChange={setToUnitId}>
-                                    <SelectTrigger className="w-[140px] text-right justify-end font-bold bg-slate-50 border-slate-200">
+                                    <SelectTrigger className="w-full text-right justify-end font-bold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 border-0 rounded-xl h-10 px-3 hover:bg-indigo-100 focus:ring-0">
                                         <SelectValue placeholder="Unit" />
                                     </SelectTrigger>
-                                    <SelectContent align="end">
+                                    <SelectContent align="end" className="max-h-[300px]">
                                         {currentUnits.map(u => (
                                             <SelectItem key={u.id} value={u.id}>
                                                 <span className="font-medium">{u.symbol}</span>
@@ -291,14 +277,16 @@ export default function QuickConvert() {
             </Card>
 
             {/* Copy Button */}
-            <Button
-                onClick={copyResult}
-                className="w-full py-6 rounded-xl text-md font-bold shadow-lg shadow-slate-200"
-                size="lg"
-            >
-                <Copy size={20} className="mr-2" />
-                COPY RESULT
-            </Button>
+            <motion.div whileTap={{ scale: 0.98 }}>
+                <Button
+                    onClick={copyResult}
+                    className="w-full py-7 rounded-2xl text-lg font-bold shadow-xl shadow-indigo-500/20 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white border-0"
+                    size="lg"
+                >
+                    <Copy size={20} className="mr-2" />
+                    Copy Result
+                </Button>
+            </motion.div>
         </div>
     );
 }
