@@ -38,9 +38,9 @@ export function GlobalSearch() {
         return () => document.removeEventListener("keydown", down)
     }, [])
 
-    const runCommand = (command) => {
+    const runCommand = (action) => {
         setOpen(false)
-        command()
+        action()
     }
 
     return (
@@ -70,23 +70,23 @@ export function GlobalSearch() {
                     <CommandEmpty>No results found.</CommandEmpty>
 
                     <CommandGroup heading="Suggestions">
-                        <CommandItem onSelect={() => runCommand(() => navigate('/sets'))}>
+                        <CommandItem value="Browse Categories" onSelect={() => runCommand(() => navigate('/sets'))}>
                             <Ruler className="mr-2 h-4 w-4" />
                             <span>Browse Categories</span>
                         </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => navigate('/constants'))}>
+                        <CommandItem value="Constants Library" onSelect={() => runCommand(() => navigate('/constants'))}>
                             <LinkIcon className="mr-2 h-4 w-4" />
                             <span>Constants Library</span>
                         </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => navigate('/currency'))}>
+                        <CommandItem value="Currency Converter" onSelect={() => runCommand(() => navigate('/currency'))}>
                             <Banknote className="mr-2 h-4 w-4" />
                             <span>Currency Converter</span>
                         </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => navigate('/cooking'))}>
+                        <CommandItem value="Cooking Converter" onSelect={() => runCommand(() => navigate('/cooking'))}>
                             <ChefHat className="mr-2 h-4 w-4" />
                             <span>Cooking Converter</span>
                         </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => navigate('/history'))}>
+                        <CommandItem value="Export History" onSelect={() => runCommand(() => navigate('/history'))}>
                             <Download className="mr-2 h-4 w-4" />
                             <span>Export History</span>
                         </CommandItem>

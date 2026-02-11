@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { ArrowRightLeft, Copy, Star, Share2, Info, Ruler, Scale, Gauge, Thermometer, Square, Box, Wind, Clock, HardDrive, Flame, Plug, Hammer, Activity } from 'lucide-react';
+import { ArrowRightLeft, Copy, Star, Share2, Info } from 'lucide-react';
 import unitsData from '../data/units.json';
 import { familyInfo } from '../data/categoryInfo';
 import { convert } from '../utils/converter';
@@ -9,25 +9,10 @@ import db from '../db/database';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { toast } from "sonner"
 import { motion, AnimatePresence } from "framer-motion";
-
-const iconMap = {
-    ruler: Ruler,
-    scale: Scale,
-    gauge: Gauge,
-    thermometer: Thermometer,
-    square: Square,
-    box: Box,
-    wind: Wind,
-    clock: Clock,
-    "hard-drive": HardDrive,
-    flame: Flame,
-    plug: Plug,
-    hammer: Hammer,
-    activity: Activity
-};
+import NanoBananaVisual from '../components/NanoBananaVisual';
 
 export default function QuickConvert() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -39,7 +24,6 @@ export default function QuickConvert() {
     const [result, setResult] = useState('');
     const [rounding, setRounding] = useState(2);
     const [isFavorite, setIsFavorite] = useState(false);
-    const [showInfo, setShowInfo] = useState(false);
 
     const historyTimeoutRef = useRef(null);
 
@@ -182,8 +166,6 @@ export default function QuickConvert() {
         toast.success("Link copied to clipboard");
     }
 
-    const FamilyIcon = iconMap[currentInfo.icon] || Info;
-
     return (
         <div className="space-y-6 pb-24">
             {/* Family Selector */}
@@ -201,7 +183,6 @@ export default function QuickConvert() {
                             onClick={() => setFamily(f)}
                             className={`relative px-4 py-1.5 rounded-full text-sm font-medium transition-colors z-0 flex items-center gap-2 whitespace-nowrap ${family === f ? 'text-white' : 'text-slate-500 hover:text-indigo-600 bg-white dark:bg-slate-800'}`}
                         >
-                            {/* Short icon if needed */}
                             {f.charAt(0).toUpperCase() + f.slice(1)}
                         </button>
                     </div>
@@ -212,21 +193,41 @@ export default function QuickConvert() {
             <AnimatePresence mode="wait">
                 <motion.div
                     key={family}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
                     className="relative"
                 >
-                    <Card className="border-0 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900/50 mb-6 overflow-hidden">
-                        <CardContent className="p-4 flex items-start gap-4">
-                            <div className="p-3 bg-white dark:bg-slate-800 rounded-xl text-indigo-600 dark:text-indigo-400 shadow-sm">
-                                <FamilyIcon size={24} />
+                    <Card className={`border-0 bg-gradient-to-br ${currentInfo.color || 'from-slate-50 to-slate-100'} dark:from-slate-800 dark:to-slate-900 mb-6 overflow-hidden shadow-lg`}>
+                        <CardContent className="p-0 flex flex-col sm:flex-row items-center sm:items-stretch">
+                            {/* Visual Side */}
+                            <div className="w-full sm:w-1/3 bg-white/30 dark:bg-black/20 p-6 flex items-center justify-center">
+                                <NanoBananaVisual family={family} />
                             </div>
-                            <div>
-                                <h3 className="font-bold text-indigo-900 dark:text-indigo-100 capitalize">{family}</h3>
-                                <p className="text-sm text-indigo-700/80 dark:text-indigo-200/70 mt-1">
-                                    {currentInfo.description || "Convert units seamlessly."}
+
+                            {/* Content Side */}
+                            <div className="flex-1 p-6 space-y-3">
+                                <div>
+                                    <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300">
+                                        {currentInfo.title || family.charAt(0).toUpperCase() + family.slice(1)}
+                                    </h3>
+                                    <p className="text-sm font-medium text-slate-600 dark:text-slate-300 mt-1">
+                                        {currentInfo.description}
+                                    </p>
+                                </div>
+                                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    {currentInfo.detailed_desc}
                                 </p>
+                                {currentInfo.fun_fact && (
+                                    <div className="bg-white/50 dark:bg-slate-800/50 rounded-lg p-3 text-xs border border-white/20 dark:border-slate-700/50 flex gap-2 items-start">
+                                        <Info size={14} className="mt-0.5 shrink-0 text-indigo-500" />
+                                        <span className="text-indigo-900 dark:text-indigo-200 font-medium">
+                                            <span className="font-bold opacity-70 block mb-1 uppercase tracking-wider text-[10px]">Did you know?</span>
+                                            {currentInfo.fun_fact}
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         </CardContent>
                     </Card>
