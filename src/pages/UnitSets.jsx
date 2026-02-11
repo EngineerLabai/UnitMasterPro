@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import {
     Ruler, Scale, Gauge, Zap, Thermometer, Hammer, Activity,
     Square, Box, Wind, Clock, HardDrive, Flame, Plug,
-    Banknote, ChefHat
+    Banknote, ChefHat, Calendar, Heart, Percent
 } from 'lucide-react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -27,6 +27,8 @@ const categories = [
 const specializedTools = [
     { id: 'currency', name: 'Currency', icon: Banknote, path: '/currency', description: 'Real-time exchange rates' },
     { id: 'cooking', name: 'Cooking', icon: ChefHat, path: '/cooking', description: 'Ingredient volume to weight' },
+    { id: 'date', name: 'Date Gap', icon: Calendar, path: '/date', description: 'Date calculator' },
+    { id: 'bmi', name: 'BMI Calc', icon: Heart, path: '/bmi', description: 'Body Mass Index' },
 ];
 
 export default function UnitSets() {
