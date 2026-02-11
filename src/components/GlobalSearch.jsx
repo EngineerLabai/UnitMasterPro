@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Calculator, Calendar, CreditCard, Settings, User, Smile, Search, Ruler, Link as LinkIcon, Download, Banknote, ChefHat } from "lucide-react"
+import { Calculator, Calendar, CreditCard, Settings, User, Smile, Search, Ruler, Link as LinkIcon, Download, Banknote, ChefHat, Percent, Users } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 import {
@@ -70,31 +70,31 @@ export function GlobalSearch() {
                     <CommandEmpty>No results found.</CommandEmpty>
 
                     <CommandGroup heading="Suggestions">
-                        <CommandItem value="Browse Categories" onSelect={() => runCommand(() => navigate('/sets'))}>
+                        <CommandItem value="browse categories" onSelect={() => runCommand(() => navigate('/sets'))}>
                             <Ruler className="mr-2 h-4 w-4" />
                             <span>Browse Categories</span>
                         </CommandItem>
-                        <CommandItem value="Constants Library" onSelect={() => runCommand(() => navigate('/constants'))}>
+                        <CommandItem value="constants library" onSelect={() => runCommand(() => navigate('/constants'))}>
                             <LinkIcon className="mr-2 h-4 w-4" />
                             <span>Constants Library</span>
                         </CommandItem>
-                        <CommandItem value="Currency Converter" onSelect={() => runCommand(() => navigate('/currency'))}>
+                        <CommandItem value="currency converter" onSelect={() => runCommand(() => navigate('/currency'))}>
                             <Banknote className="mr-2 h-4 w-4" />
                             <span>Currency Converter</span>
                         </CommandItem>
-                        <CommandItem value="Discount & Tax Calculator" onSelect={() => runCommand(() => navigate('/discount'))}>
+                        <CommandItem value="discount & tax calculator" onSelect={() => runCommand(() => navigate('/discount'))}>
                             <Percent className="mr-2 h-4 w-4" />
                             <span>Discount & Tax Calculator</span>
                         </CommandItem>
-                        <CommandItem value="Split Bill & Tip" onSelect={() => runCommand(() => navigate('/bill'))}>
+                        <CommandItem value="split bill & tip" onSelect={() => runCommand(() => navigate('/bill'))}>
                             <Users className="mr-2 h-4 w-4" />
                             <span>Split Bill & Tip</span>
                         </CommandItem>
-                        <CommandItem value="Cooking Converter" onSelect={() => runCommand(() => navigate('/cooking'))}>
+                        <CommandItem value="cooking converter" onSelect={() => runCommand(() => navigate('/cooking'))}>
                             <ChefHat className="mr-2 h-4 w-4" />
                             <span>Cooking Converter</span>
                         </CommandItem>
-                        <CommandItem value="Export History" onSelect={() => runCommand(() => navigate('/history'))}>
+                        <CommandItem value="export history" onSelect={() => runCommand(() => navigate('/history'))}>
                             <Download className="mr-2 h-4 w-4" />
                             <span>Export History</span>
                         </CommandItem>
@@ -106,7 +106,7 @@ export function GlobalSearch() {
                         {allUnits.map((unit) => (
                             <CommandItem
                                 key={`${unit.family}-${unit.id}`}
-                                value={`${unit.name} ${unit.symbol} ${unit.family}`}
+                                value={`${unit.name} ${unit.symbol} ${unit.family}`.toLowerCase()}
                                 onSelect={() => runCommand(() => navigate(`/?family=${unit.family}&from=${unit.id}`))}
                             >
                                 <div className="flex items-center justify-between w-full">
